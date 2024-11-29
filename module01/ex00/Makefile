@@ -1,6 +1,6 @@
-SRC = Contact.cpp main.cpp PhoneBook.cpp
+SRC = Zombie.cpp main.cpp newZombie.cpp randomChump.cpp
 
-NAME = PhoneBook
+NAME = Zombie
 
 CC = c++ -Wall -Werror -Wextra  -g -std=c++98
 all: $(NAME)

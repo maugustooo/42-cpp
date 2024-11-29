@@ -1,8 +1,8 @@
-#include "class.hpp"
+#include "PhoneBook.hpp"
 
 int main()
 {
-	PhoneBook phone_book;
+	PhoneBook PhoneBook;
 	std::string command;
 
 	while (1)
@@ -12,9 +12,9 @@ int main()
 		if (command == "EXIT")
 			break;
 		else if (command == "ADD")
-			phone_book.add_contact();
+			PhoneBook.add_contact();
 		else if (command == "SEARCH")
-			phone_book.search_contact();
+			PhoneBook.search_contact();
 		else
 			std::cout << "Invalid command." << std::endl;
 	}
