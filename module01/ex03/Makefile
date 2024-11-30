@@ -1,6 +1,6 @@
-SRC = main.cpp
+SRC = main.cpp Weapon.cpp HumanA.cpp HumanB.cpp
 
-NAME = Brain
+NAME =  Unnecessaryviolence
 
 CC = c++ -Wall -Werror -Wextra  -g -std=c++98
 
