@@ -4,15 +4,18 @@ int main()
 {
 	std::string ZombieName;
 	int nzombies = 0;
-	while (nzombies <= 0 || nzombies > 1000)
+	while (1)
 	{
 		std::cout << "Enter number of zombies(between 1 and 1000):";
 		std::cin >> nzombies;
 		if (std::cin.fail() || nzombies < 1 || nzombies > 1000)
 		{
 			std::cin.clear();
-			std::cout << "Invalid input. Please enter a  number of zombies(between 1 and 1000).\n";
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cout << "Invalid input. Please enter a  number of zombies between 1 and 1000.\n";
 		}
+		else
+			break;
 	}
 	std::cout << "enter zombie name: ";
 	std::cin >> ZombieName;

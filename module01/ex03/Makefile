@@ -1,8 +1,9 @@
-SRC = Zombie.cpp zombieHorde.cpp main.cpp
+SRC = main.cpp
 
-NAME = Horde
+NAME = Brain
 
 CC = c++ -Wall -Werror -Wextra  -g -std=c++98
+
 all: $(NAME)
 
 $(NAME): $(SRC)
