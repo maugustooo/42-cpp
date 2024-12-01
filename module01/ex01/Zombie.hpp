@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
-
+#include <limits>
 class Zombie{
 	private:
 		std::string _name;
