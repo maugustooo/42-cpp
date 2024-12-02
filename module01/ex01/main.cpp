@@ -4,7 +4,7 @@ int main()
 {
 	std::string ZombieName;
 	int nzombies = 0;
-	while (1)
+	while (!std::cin.eof())
 	{
 		std::cout << "Enter number of zombies(between 1 and 1000):";
 		std::cin >> nzombies;
@@ -17,6 +17,8 @@ int main()
 		else
 			break;
 	}
+	if (std::cin.eof())
+		return 0;
 	std::cout << "enter zombie name: ";
 	std::cin >> ZombieName;
 	Zombie *horde = zombieHorde(nzombies, ZombieName);
