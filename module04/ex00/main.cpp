@@ -28,8 +28,8 @@ int main()
 
     std::cout << wrongCat->getType() << " " << std::endl;
 
-    wrongCat->makeSound(); // Output: WrongAnimal sound
-    wrongMeta->makeSound(); // Output: WrongAnimal sound
+    wrongCat->makeSound();
+    wrongMeta->makeSound();
 
     delete wrongMeta;
     delete wrongCat;
