@@ -14,7 +14,7 @@ int main() {
         animals[i] = new Dog();
         animals[i + 3] = new Cat();
     }
-    
+
     for (int i = 0; i < 300; ++i)
     {
         if (i % 2 == 0)

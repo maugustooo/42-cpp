@@ -26,8 +26,6 @@ void Cat::makeSound() const{
     std::cout << "Cat makes a sound meow meow" << std::endl;
 }
 
-
-
 Brain *Cat::getBrain() const{
     return _brain;
 }
