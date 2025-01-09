@@ -21,11 +21,13 @@ int main()
 			b1.signForm(*intern);
 			b1.executeForm(*intern);
 			std::cout << *intern << std::endl;
+			delete intern;
 			std::cout << "--Robotomy" << std::endl;
 			intern = someRandomIntern.makeForm("robotomy request", "Bender");
 			b2.signForm(*intern);
 			b2.executeForm(*intern);
 			std::cout << *intern << std::endl;
+			delete intern;
 			std::cout << "--presidential" << std::endl;
 			intern = someRandomIntern.makeForm("presidential pardon", "Bender");
 			b3.signForm(*intern);
