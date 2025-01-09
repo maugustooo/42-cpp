@@ -19,8 +19,8 @@ Form::Form(const Form &form): _name(form._name), _gradeToSign(form._gradeToSign)
 	_signed = form._signed;
 }
 
-Form &Form::operator=(Form const &rSym) {
-	_signed = rSym._signed;
+Form &Form::operator=(Form const &other) {
+	_signed = other._signed;
 	return *this;
 }
 
@@ -45,7 +45,13 @@ int Form::getGradeToExecute() const {
 void Form::beSigned(Bureaucrat &bureaucrat) {
 	if (bureaucrat.getGrade() > _gradeToSign)
 		throw Form::GradeTooLowException();
-	_signed = true;
+	else if (_signed)
+		std::cout << "Form is already signed" << std::endl;
+	else
+	{
+		_signed = true;
+		std::cout << "Form is signed by " << bureaucrat.getName() << std::endl;
+	}
 }
 
 const char* Form::GradeTooHighException::what() const throw() {

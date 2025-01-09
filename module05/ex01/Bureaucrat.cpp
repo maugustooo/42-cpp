@@ -16,10 +16,10 @@ Bureaucrat::Bureaucrat(const Bureaucrat &bureaucrat)
 	*this = bureaucrat;
 }
 
-Bureaucrat &Bureaucrat::operator=(Bureaucrat const &rSym)
+Bureaucrat &Bureaucrat::operator=(Bureaucrat const &other)
 {
 	std :: cout << "Bureaucrat assignation operator called" << std :: endl;
-	_grade = rSym._grade;
+	_grade = other._grade;
 	return *this;
 }
 
@@ -67,13 +67,11 @@ void Bureaucrat::signForm(Form &form)
 	try
 	{
 		form.beSigned(*this);
-		std::cout << _name << " signs " << form.getName() << std::endl;
 	}
 	catch(const std::exception& e)
 	{
 		std::cerr << _name << " cannot sign " << form.getName() << " because " << e.what() << std::endl;
 	}
-	
 }
 
 std::ostream &operator<<(std::ostream &stream, const Bureaucrat &bureaucrat)
