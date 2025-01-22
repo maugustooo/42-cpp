@@ -1,8 +1,8 @@
-SRC = main.cpp Bureaucrat.cpp Form.cpp
+SRC = main.cpp Scalar.cpp
 
-NAME = Form
+NAME = Bureucrat
 
-CC = c++ -Wall -Werror -Wextra  -g -std=c++98
+CC = c++ -Wall -Werror -Wextra -g -std=c++98
 
 all: $(NAME)
 
