@@ -1,6 +1,6 @@
-SRC = main.cpp ScalarConverter.cpp Converters.cpp
+SRC = Serializer.cpp main.cpp
 
-NAME = ScalarConverter
+NAME = Serializer
 
 CC = c++ -Wall -Werror -Wextra -g -std=c++98
 

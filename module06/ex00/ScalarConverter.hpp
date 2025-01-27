@@ -2,18 +2,19 @@
 #include <string>
 #include <iostream>
 #include <iomanip> 
+#include <cstdlib>
 
 #define CHAR 1
 #define INT 2
 #define FLOAT 3
 #define DOUBLE 4
-
+#define INF 5
+#define NAN 6
 class ScalarConverter
 {
 private:
 	std::string _input;
 	int 		_type;
-	ScalarConverter();
 	static int HandleInput(const std::string input);
 	int GetType();
 	std::string GetInput();
@@ -31,3 +32,5 @@ void convertChar(const std::string input);
 void convertInt(const std::string input);
 void convertFloat(const std::string input);
 void convertDouble(const std::string input);
+void convertInf(const std::string input);
+void convertNan();
