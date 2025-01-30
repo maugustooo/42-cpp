@@ -10,6 +10,7 @@
 #define DOUBLE 4
 #define INF 5
 #define NAN 6
+#define INVALID 7
 class ScalarConverter
 {
 private:
@@ -19,7 +20,6 @@ private:
 	int GetType();
 	std::string GetInput();
 public:
-	ScalarConverter();
 	ScalarConverter(const std::string &input);
 	ScalarConverter(const ScalarConverter &scalar);
 	ScalarConverter &operator=(ScalarConverter const &rSym);

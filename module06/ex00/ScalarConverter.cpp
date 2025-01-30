@@ -1,11 +1,5 @@
 #include "ScalarConverter.hpp"
 
-ScalarConverter::ScalarConverter()
-{
-	std::cout << "Constructor called" << std::endl;
-	convert(GetInput());
-}
-
 ScalarConverter::ScalarConverter(const std::string &input) : _input(input)
 {
 	std::cout << "Constructor called" << std::endl;
@@ -51,6 +45,9 @@ void ScalarConverter::convert(const std::string input)
 	case NAN:
 		convertNan();
 		break;
+	case INVALID:
+		std::cout << "Invalid input" << std::endl;
+		break;
 	default:
 		break;
 	}
@@ -72,6 +69,7 @@ int ScalarConverter::HandleInput(const std::string input)
 		return CHAR;
 	if((input[0] >= '0' && input[0] <= '9') || input[0] == '+' || input[0] == '-')
 	{
+		bool has_char = false;
 		bool is_int = true;
 		int dots = 0;
 		int fs = 0;
@@ -79,9 +77,11 @@ int ScalarConverter::HandleInput(const std::string input)
 			if (input[i] < '0' || input[i] > '9')
 			{
 				is_int = false;
+				if (input[i] != '.')
+					has_char = true;
 				if (input[i] == '.')
 					dots ++;
-				else if (i == input.length() - 1 && input[i] == 'f')
+				else if ((i == input.length() - 1 && input[i] == 'f'))
 					fs ++;
 				else
 					break;
@@ -90,8 +90,8 @@ int ScalarConverter::HandleInput(const std::string input)
 			return INT;
 	if(dots > 0)
 	{
-		if (dots > 1 || fs > 1)
-			return 0;
+		if (dots > 1 || fs > 1 || (has_char == true && fs != 1))
+			return INVALID;
 		if (fs == 0)
 			return DOUBLE;
 		else
@@ -101,8 +101,8 @@ int ScalarConverter::HandleInput(const std::string input)
 	if(input == "-inff" || input == "+inff"
 	|| input == "-inf" || input == "+inf")
 		return INF;
-	else if(input == "nanf" || input == "nan")
+	else if(input == "nan")
 		return NAN;
-	return 0;
+	return INVALID;
 }
 

@@ -20,6 +20,6 @@ class Serializer
 		~Serializer();
 		Serializer &operator=(const Serializer &src);
 
-		uintptr_t serialize(Data *data);
+		uintptr_t serialize(Data *ptr);
 		Data *deserialize(uintptr_t raw);
 };

@@ -39,12 +39,35 @@ void identify(Base *p)
 
 void identify(Base &p)
 {
-	if (static_cast<void*>(&p) == static_cast<void*>(static_cast<A*>(&p)))
-	std::cout << "A" << std::endl;
-	else if (static_cast<void*>(&p) == static_cast<void*>(static_cast<B*>(&p)))
+	try
+	{
+		(void) dynamic_cast<A &>(p);
+		std::cout << "A" << std::endl;
+		return;
+	}
+	catch (std::bad_cast &)
+	{
+		std::cout << "Error on A" << std::endl;
+	}
+	try
+	{
+		(void) dynamic_cast<B &>(p);
 		std::cout << "B" << std::endl;
-	else if (static_cast<void*>(&p) == static_cast<void*>(static_cast<C*>(&p)))
+		return;
+	}
+	catch (std::bad_cast &)
+	{
+		std::cout << "Error on B" << std::endl;
+	}
+
+	try
+	{
+		(void) dynamic_cast<C &>(p);
 		std::cout << "C" << std::endl;
-	else
-		std::cout << "Error on identify" << std::endl;
+		return;
+	}
+	catch (std::bad_cast &)
+	{
+		std::cout << "Error on C" << std::endl;
+	}
 }

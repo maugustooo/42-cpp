@@ -44,7 +44,7 @@ void convertFloat(const std::string input)
 		std::cout << "int: " << asInt << ".0" << std::endl;
 	else
 		std::cout << "int: " << asInt << std::endl;
-	std::cout << "float: " << std::fixed << std::setprecision(1) << asFloat << "f" << std::endl;
+	std::cout << "float: " << asFloat << "f" << std::endl;
 	std::cout << "double: " << asDouble << std::endl;
 }
 
@@ -64,9 +64,9 @@ void convertDouble(const std::string input)
 	else
 		std::cout << "int: " << asInt << std::endl;
 	if (asFloat == asDouble)
-		std::cout << "float: " << std::fixed << std::setprecision(1) << asFloat << ".0f" << std::endl;
+		std::cout << "float: " << asFloat << ".0f" << std::endl;
 	else
-		std::cout << "float: " << std::fixed << std::setprecision(1) << asFloat << "f" << std::endl;
+		std::cout << "float: " << asFloat << "f" << std::endl;
 	std::cout << "double: " << asDouble << std::endl;
 }
 
