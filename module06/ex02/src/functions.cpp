@@ -45,20 +45,14 @@ void identify(Base &p)
 		std::cout << "A" << std::endl;
 		return;
 	}
-	catch (std::bad_cast &)
-	{
-		std::cout << "Error on A" << std::endl;
-	}
+	catch (const std::exception &e){}
 	try
 	{
 		(void) dynamic_cast<B &>(p);
 		std::cout << "B" << std::endl;
 		return;
 	}
-	catch (std::bad_cast &)
-	{
-		std::cout << "Error on B" << std::endl;
-	}
+	catch (const std::exception &e){}
 
 	try
 	{
@@ -66,8 +60,6 @@ void identify(Base &p)
 		std::cout << "C" << std::endl;
 		return;
 	}
-	catch (std::bad_cast &)
-	{
-		std::cout << "Error on C" << std::endl;
-	}
+	catch (const std::exception &e){}
+	std::cout << "Error on identify" << std::endl;
 }
