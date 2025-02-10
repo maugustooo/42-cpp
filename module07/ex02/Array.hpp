@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
-
+#include <cstdlib>
 template <typename T>
 
 class Array
@@ -11,26 +11,26 @@ class Array
 		unsigned int _size;
 
 	public:
-		Array::Array(void) : _array(new T[0], _size(0))
+		Array(void) : _array(new T[0]),_size(0)
 		{
 			std::cout << "Default constructor called" << std::endl;
 		}
-		Array::Array(unsigned int n): _array(new T[n], _size(n))
+		Array(unsigned int n): _array(new T[n]), _size(n)
 		{
 			std::cout << "Constructor with size called" << std::endl;
 		}
-		Array::Array(Array const &src): _array(new T[src._size], _size(src._size))
+		Array(Array const &src): _array(new T[src._size]), _size(src._size)
 		{
 			std::cout << "Copy constructor called" << std::endl;
 			for (unsigned int i = 0; i < _size; i++)
 				_array[i] = src._array[i];
 		}
-		Array::~Array(void)
+		~Array(void)
 		{
 			std::cout << "Destructor called" << std::endl;
 			delete [] _array;
 		}
-		Array &operator=(Array const %src)
+		Array &operator=(Array const &src)
 		{
 			std::cout << "Assignment operator called" << std::endl;
 			if (this != &src)
@@ -49,8 +49,7 @@ class Array
 				throw Array<T>::OutOfboundsException();
 			return _array[i];
 		}
-		unsigned int size(void) const
-            return _size;
+		unsigned int size(void) const {return _size;}
 		class OutOfboundsException : public std::exception
         {
             public:
