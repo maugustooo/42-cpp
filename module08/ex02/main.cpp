@@ -59,12 +59,12 @@ int main()
 		MutantStack<int>::iterator it = mstack.end();
 		MutantStack<int>::iterator ite = mstack.begin();
 		it--;
-		int i = 2;
+		int i = 0;
 		while (it != ite)
 		{
 			std::cout << "Stack Index[" << i << "] Value: " << *it << std::endl;
 			--it;
-			i--;
+			i++;
 		}
 		if (*it)
 			std::cout << "Stack Index[" << i << "] Value: " << *it << std::endl;

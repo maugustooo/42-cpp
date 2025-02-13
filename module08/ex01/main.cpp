@@ -4,7 +4,7 @@ int main()
 {
 	{
 		std::cout << "---Subject Test---" << std::endl;
-		Span sp = Span(10000);
+		Span sp = Span(5);
 		sp.addNumber(6);
 		sp.addNumber(3);
 		sp.addNumber(17);
@@ -81,7 +81,6 @@ int main()
 		}
 		try
 		{
-			
 			sp.longestSpan();
 		}
 		catch (std::exception &e)
