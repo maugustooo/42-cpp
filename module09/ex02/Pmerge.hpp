@@ -1,20 +1,21 @@
 #pragma once
 #include <iostream>
-#include <stack>
+#include <deque>
 #include <string>
 #include <sstream>
 #include <cstdlib>
+#include <algorithm>
 
-class RPN
+class Pmerge
 {
 	private:
-		std::stack<int> _stack;
+		std::deque<int> _stack;
 		bool 			_error;	
 	public:
-		RPN();
-		RPN(const RPN &copy);
-		~RPN();
-		RPN &operator=(const RPN &copy);
+		Pmerge();
+		Pmerge(const Pmerge &copy);
+		~Pmerge();
+		Pmerge &operator=(const Pmerge &copy);
 		void calculate(std::string str);
 		void printStack();
 };

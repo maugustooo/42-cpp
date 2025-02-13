@@ -1,6 +1,6 @@
 SRC = main.cpp RPN.cpp
 
-NAME = RPN
+NAME = PmergeMe
 
 CC = c++ -Wall -Werror -Wextra -g -std=c++98
 
