@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <exception>
-
+#include <sstream>
 class MissingException : public std::exception
 {
 	public:
