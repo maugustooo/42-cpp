@@ -29,47 +29,28 @@ PmergeMe::~PmergeMe()
 	std::cout << "PmergeMe destructor called" << std::endl;
 }
 
-void merge(std::vector<int> &vector, int left, int mid, int right)
-{
-	std::vector<int> leftVector(vector.begin() + left, vector.begin() + mid + 1);
-	std::vector<int> rightVector(vector.begin() + mid + 1, vector.begin() + right + 1);
-
-	int i = 0, j = 0, k = left;
-	while (i < leftVector.size() && j < rightVector.size())
-	{
-		if (leftVector[i] <= rightVector[j])
-			vector[k++] = leftVector[i++];
-		else
-			vector[k++] = rightVector[j++];
-	}
-	while (i < leftVector.size())
-		vector[k++] = leftVector[i++];
-	while (j < rightVector.size())
-		vector[k++] = rightVector[j++];
-}
-
-void mergeInsertionSort(std::vector<int> &vector, int left, int right)
-{
-	if (left >= right)
-		return;
-	int mid = left + (right - left) / 2;
-	mergeInsertionSort(vector, left, mid);
-	mergeInsertionSort(vector, mid + 1, right);
-	merge(vector, left, mid, right);
-}
-
 void sortVector(std::vector<int> &vector)
 {
-	if (vector.empty())
+	if (vector.empty() || vector.size() <= 1)
 		return;
-	mergeInsertionSort(vector, 0, vector.size() - 1);
+	int mid = vector.size() / 2;
+	std::vector<int> leftvector(vector.begin(), vector.begin() + mid);
+	std::vector<int> rightvector(vector.begin() + mid, vector.end());
+	sortVector(leftvector);
+	sortVector(rightvector);
+	std::merge(leftvector.begin(), leftvector.end(), rightvector.begin(), rightvector.end(), vector.begin());
 }
 
 void sortDeque(std::deque<int> &deque)
 {
-	if (deque.empty())
+	if (deque.empty() || deque.size() <= 1)
 		return;
-	;
+	int mid = deque.size() / 2;
+	std::deque<int> leftdeque(deque.begin(), deque.begin() + mid);
+	std::deque<int> rightdeque(deque.begin() + mid, deque.end());
+	sortDeque(leftdeque);
+	sortDeque(rightdeque);
+	std::merge(leftdeque.begin(), leftdeque.end(), rightdeque.begin(), rightdeque.end(), deque.begin());
 }
 
 void PmergeMe::handleSort()
