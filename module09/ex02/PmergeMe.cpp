@@ -48,8 +48,8 @@ void insertionSort(Container &cont, int left, int right)
 template <typename Container>
 void merge(Container &cont, int left, int mid, int right)
 {
-    Container<int> leftCont(cont.begin() + left, cont.begin() + mid + 1);
-    Container<int> rightCont(cont.begin() + mid + 1, cont.begin() + right + 1);
+    Container leftCont(cont.begin() + left, cont.begin() + mid + 1);
+    Container rightCont(cont.begin() + mid + 1, cont.begin() + right + 1);
 
     int i = 0, j = 0, k = left;
     while (i < (int)leftCont.size() && j < (int)rightCont.size())
@@ -82,9 +82,10 @@ void mergeInsertionSort(Container &cont, int left, int right)
 template <typename Container>
 void sortContainer(Container &cont)
 {
-    if (cont.size() <= 1)
-        return;
-    fordJohnson(cont, 0, cont.size() - 1);
+    if (cont.size() <= 1){
+    	return;
+	}
+	mergeInsertionSort(cont, 0, cont.size() - 1);
 }
 
 void PmergeMe::handleSort()
@@ -98,46 +99,18 @@ void PmergeMe::handleSort()
 	std::cout << std::endl << "vector after: ";
 	for (int i = 0; i < (int)_vector.size(); i++)
 		std::cout << _vector[i] << " ";
-	
+	std::cout << std::endl << "vector time: " << (double)(vecEnd - vecStart) / CLOCKS_PER_SEC << std::endl;
+	std::cout << std::endl << "deque before: ";
+	for (int i = 0; i < (int)_deque.size(); i++)
+		std::cout << _deque[i] << " ";
+	clock_t dequeStart = clock();
+	sortContainer(_deque);
+	clock_t dequeEnd = clock();
+	std::cout << std::endl << "deque after: ";
+	for (int i = 0; i < (int)_deque.size(); i++)
+		std::cout << _deque[i] << " ";	
+	std::cout << std::endl << "deque time: " << (double)(dequeEnd - dequeStart) / CLOCKS_PER_SEC << std::endl;
 }
-
-// void sortDeque(std::deque<int> &deque, int start, int end)
-// {
-// 	if (deque.size() <= 1)
-// 		return;
-// 	mergeInsertionSortDeque(deque, 0, deque.size() - 1);
-// }
-
-// void mergeInsertionSortDeque(std::deque<int> &deque, int start, int end)
-// {
-// 	if (start >= end)
-// 		return;
-// 	int mid = start + (end - start) / 2;
-// 	mergeInsertionSortDeque(deque, start, mid);
-// 	mergeInsertionSortDeque(deque, mid + 1, end);
-// 	mergeDeque(deque, start, mid, end);
-// }
-
-// void mergeDeque(std::deque<int> &deque, int start, int mid, int end)
-// {
-// 	std::deque<int> left(deque.begin() + start, deque.begin() + mid + 1);
-// 	std::deque<int> right(deque.begin() + mid + 1, deque.begin() + end + 1);
-
-// 	int i = 0, j = 0, k = start;
-// 	while (i < left.size() && j < right.size())
-// 	{
-// 		if (left[i] <= right[j])
-// 			deque[k++] = left[i++];
-// 		else
-// 			deque[k++] = right[j++];
-// 	}
-
-// 	while (i < left.size())
-// 		deque[k++] = left[i++];
-	
-// 	while (j < right.size())
-// 		deque[k++] = right[j++];
-// }
 
 bool isNumber(const std::string &string)
 {
@@ -159,9 +132,7 @@ void PmergeMe::start(int argc, char **argv)
 		std::string token;
 		while (ss >> token)
 		{
-			if (isNumber(token))
-				_deque.push_back(std::atoi(token.c_str()));
-			else
+			if (!isNumber(token))
 			{
 				_error = true;
 				throw InvalidArgsexception();
