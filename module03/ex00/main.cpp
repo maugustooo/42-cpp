@@ -43,5 +43,12 @@ int main()
         clapTrap3.beRepaired(5);
         clapTrap3.attack("Sipder Man");
     }
+	{
+		std::cout << std::endl << "-------------TESTE4------------------" << std::endl;
+		ClapTrap claptrap1;
+		ClapTrap claptrap2("NOME");
+		ClapTrap claptrap3(claptrap2);
+		ClapTrap claptrap4 = claptrap3;
+	}
     return 0;
 }

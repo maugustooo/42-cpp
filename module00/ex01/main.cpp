@@ -17,6 +17,7 @@ int main()
 			PhoneBook.search_contact();
 		else
 			std::cout << "Invalid command." << std::endl;
+		std::string().swap(command);
 	}
 	return (0);
 }

@@ -29,21 +29,41 @@ PmergeMe::~PmergeMe()
 	std::cout << "PmergeMe destructor called" << std::endl;
 }
 
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
 std::vector<int> generateJacobsthal(int n)
 {
     std::vector<int> jacob;
-    int j0 = 0, j1 = 1;
+    int j0 = 0, j1 = 1, next =0;
     jacob.push_back(j1);
 
-    while (true) {
-        int next = j1 + 2 * j0;
+    std::cout << "[DEBUG] Jacobsthal sequence:\n";
+	
+    while (true)
+	{
+		next = j1 + 2 * j0;
         if (next >= n)
-            break;
+			break;
         jacob.push_back(next);
+        // std::cout << next << " ";
         j0 = j1;
         j1 = next;
-    }
+		std::cout << "j0: " << j0 << " j1: " << j1 << " next: " << next << "\n";
 
+    }
+	int i = 0;
+	while (jacob[i])
+	{
+		std::cout << jacob[i] << " ";
+		i++;
+	}
+	std::cout << " END of jacobsthal\n\n";
     return jacob;
 }
 
@@ -53,9 +73,16 @@ void fordJohnson(Container &cont, int left, int right) {
     if (size <= 1)
         return;
 
-    std::vector<int> A, B;
+    std::cout << "\n[DEBUG] fordJohnson called on: ";
+    for (int i = left; i <= right; ++i)
+        std::cout << cont[i] << " ";
+    std::cout << "\n";
 
-    for (int i = left; i + 1 <= right; i += 2) {
+    std::vector<int> A;
+    std::vector<int> B;
+
+    int i;
+    for (i = left; i + 1 <= right; i += 2) {
         if (cont[i] > cont[i + 1]) {
             A.push_back(cont[i]);
             B.push_back(cont[i + 1]);
@@ -68,31 +95,60 @@ void fordJohnson(Container &cont, int left, int right) {
     if ((size % 2) != 0)
         A.push_back(cont[right]);
 
+    std::cout << "  pair splited:\n";
+    std::cout << "    A (maiores): ";
+    for (i = 0; i < (int)A.size(); ++i)
+        std::cout << A[i] << " ";
+    std::cout << "\n    B (menores): ";
+    for (i = 0; i < (int)B.size(); ++i)
+        std::cout << B[i] << " ";
+    std::cout << "\n";
+
     fordJohnson(A, 0, A.size() - 1);
+
+    std::cout << "  A sorted:\n    ";
+    for (i = 0; i < (int)A.size(); ++i)
+        std::cout << A[i] << " ";
+    std::cout << "\n";
 
     std::vector<int> jacob = generateJacobsthal(B.size());
     std::vector<int> result = A;
-
     std::vector<bool> inserted(B.size(), false);
-    for (int i = 0; i < (int)jacob.size(); i++) {
-        int idx = jacob[i];
+
+    std::cout << "  inserting B using Jacobsthal:\n";
+    for (i = 0; i < (int)jacob.size(); i++)
+	{
+        int idx = jacob[i + 1];
         if (idx >= (int)B.size())
 			continue;
 
-        std::vector<int>::iterator pos = std::lower_bound(result.begin(), result.end(), B[idx]);
+        typename Container::iterator pos = std::upper_bound(result.begin(), result.end(), B[idx]);
+        std::cout << "    inserting B[" << idx << "] = " << B[idx] << " in position ";
+        std::cout << (pos - result.begin()) << "\n";
+
         result.insert(pos, B[idx]);
         inserted[idx] = true;
     }
 
-    for (int i = 0; i < (int)B.size(); i++) {
+    std::cout << "  inserting last elements of B:\n";
+    for (i = 0; i < (int)B.size(); i++) {
         if (!inserted[i]) {
-            std::vector<int>::iterator pos = std::lower_bound(result.begin(), result.end(), B[i]);
+            typename Container::iterator pos = std::lower_bound(result.begin(), result.end(), B[i]);
+            std::cout << "    inserting B[" << i << "] = " << B[i] << " in position ";
+            std::cout << (pos - result.begin()) << "\n";
             result.insert(pos, B[i]);
         }
     }
-    for (int i = 0; i < (int)result.size(); i++)
+
+    std::cout << "  final result (result):\n    ";
+    for (i = 0; i < (int)result.size(); ++i)
+        std::cout << result[i] << " ";
+    std::cout << "\n";
+
+    for (i = 0; i < (int)result.size(); i++)
         cont[left + i] = result[i];
 }
+
 
 
 template <typename Container>

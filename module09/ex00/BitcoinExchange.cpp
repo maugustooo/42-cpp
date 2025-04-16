@@ -34,7 +34,7 @@ void BitcoinExchange::convert(std::string date, double value)
     if (it != _rates.end())
     {
         result = value * it->second;
-        std::cout << date << " =>> " << value << "=" << result << std::endl;
+        std::cout << date << " =>> " << value << " = " << result << std::endl;
     }
     else
     {
