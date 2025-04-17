@@ -159,9 +159,10 @@ void fordJohnson(container &cont, size_t left, size_t right)
 template <typename container>
 void sortContainer(container &cont)
 {
-    if (cont.size() <= 1)
-        return;
-    fordJohnson(cont, 0, cont.size() - 1);
+    if (cont.size() <= 1){
+    	return;
+	}
+	mergeInsertionSort(cont, 0, cont.size() - 1);
 }
 
 void PmergeMe::handleSort()
