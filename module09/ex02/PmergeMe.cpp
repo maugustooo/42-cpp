@@ -147,7 +147,6 @@ void fordJohnson(container &cont, size_t left, size_t right)
 		size_t idx = order[i];
 		if (idx >= (size_t)B.size())
 			continue;
-	
 		binaryInsert(result, B[idx], 0, result.size());
 		inserted[idx] = true;
 	}
@@ -162,7 +161,7 @@ void sortContainer(container &cont)
     if (cont.size() <= 1){
     	return;
 	}
-	mergeInsertionSort(cont, 0, cont.size() - 1);
+	fordJohnson(cont, 0, cont.size() - 1);
 }
 
 void PmergeMe::handleSort()
