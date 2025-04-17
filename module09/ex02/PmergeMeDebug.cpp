@@ -37,38 +37,38 @@ PmergeMe::~PmergeMe()
 #include <vector>
 #include <algorithm>
 
-std::vector<int> generateJacobsthal(int n)
+template <typename container>
+container generateJacobsthal(int n)
 {
-    std::vector<int> jacob;
-    int j0 = 0, j1 = 1, next =0;
+    container jacob;
+    int j0 = 0, j1 = 1, next = 0;
+
     jacob.push_back(j1);
 
     std::cout << "[DEBUG] Jacobsthal sequence:\n";
-	
+
     while (true)
-	{
-		next = j1 + 2 * j0;
+    {
+        next = j1 + 2 * j0;
         if (next >= n)
-			break;
+            break;
         jacob.push_back(next);
-        // std::cout << next << " ";
         j0 = j1;
         j1 = next;
-		std::cout << "j0: " << j0 << " j1: " << j1 << " next: " << next << "\n";
-
+        std::cout << "j0: " << j0 << " j1: " << j1 << " next: " << next << "\n";
     }
-	int i = 0;
-	while (jacob[i])
-	{
-		std::cout << jacob[i] << " ";
-		i++;
-	}
-	std::cout << " END of jacobsthal\n\n";
+
+    for (size_t i = 0; i < jacob.size(); ++i)
+    {
+        std::cout << jacob[i] << " ";
+    }
+    std::cout << " END of jacobsthal\n\n";
     return jacob;
 }
 
-template <typename Container>
-void fordJohnson(Container &cont, int left, int right) {
+template <typename container>
+void fordJohnson(container &cont, int left, int right)
+{
     int size = right - left + 1;
     if (size <= 1)
         return;
@@ -78,8 +78,8 @@ void fordJohnson(Container &cont, int left, int right) {
         std::cout << cont[i] << " ";
     std::cout << "\n";
 
-    std::vector<int> A;
-    std::vector<int> B;
+   container A;
+   container B;
 
     int i;
     for (i = left; i + 1 <= right; i += 2) {
@@ -111,29 +111,31 @@ void fordJohnson(Container &cont, int left, int right) {
         std::cout << A[i] << " ";
     std::cout << "\n";
 
-    std::vector<int> jacob = generateJacobsthal(B.size());
-    std::vector<int> result = A;
-    std::vector<bool> inserted(B.size(), false);
+	// container jacob = generateJacobsthal<container>(B.size());
+	container result = A;
+	container inserted(B.size(), false);
 
     std::cout << "  inserting B using Jacobsthal:\n";
-    for (i = 0; i < (int)jacob.size(); i++)
-	{
-        int idx = jacob[i + 1];
-        if (idx >= (int)B.size())
-			continue;
+    // for (i = 0; i < (int)jacob.size(); i++)
+	// {
+	// 	int idx = 0;
+	// 	if (jacob[i + 1])
+    //     	idx = jacob[i + 1];
+    //     if (idx >= (int)B.size())
+	// 		continue;
 
-        typename Container::iterator pos = std::upper_bound(result.begin(), result.end(), B[idx]);
-        std::cout << "    inserting B[" << idx << "] = " << B[idx] << " in position ";
-        std::cout << (pos - result.begin()) << "\n";
+    //     typename container::iterator pos = std::upper_bound(result.begin(), result.end(), B[idx]);
+    //     std::cout << "    inserting B[" << idx << "] = " << B[idx] << " in position ";
+    //     std::cout << (pos - result.begin()) << "\n";
 
-        result.insert(pos, B[idx]);
-        inserted[idx] = true;
-    }
+    //     result.insert(pos, B[idx]);
+    //     inserted[idx] = true;
+    // }
 
     std::cout << "  inserting last elements of B:\n";
     for (i = 0; i < (int)B.size(); i++) {
         if (!inserted[i]) {
-            typename Container::iterator pos = std::lower_bound(result.begin(), result.end(), B[i]);
+            typename container::iterator pos = std::upper_bound(result.begin(), result.end(), B[i]);
             std::cout << "    inserting B[" << i << "] = " << B[i] << " in position ";
             std::cout << (pos - result.begin()) << "\n";
             result.insert(pos, B[i]);
@@ -151,8 +153,8 @@ void fordJohnson(Container &cont, int left, int right) {
 
 
 
-template <typename Container>
-void sortContainer(Container &cont)
+template <typename container>
+void sortcontainer(container &cont)
 {
     if (cont.size() <= 1)
         return;
@@ -161,16 +163,30 @@ void sortContainer(Container &cont)
 
 void PmergeMe::handleSort()
 {
+	//Vector
 	std::cout << "vector before: ";
 	for (int i = 0; i < (int)_vector.size(); i++)
 		std::cout << _vector[i] << " ";
 	clock_t vecStart = clock();
-	sortContainer(_vector);
+	sortcontainer(_vector);
 	clock_t vecEnd = clock();
 	std::cout << std::endl <<"Time to process a range of " << _vector.size() << " elements with std::vector : " << vecStart - vecEnd << std::endl;
 	std::cout << std::endl << "vector after: ";
 	for (int i = 0; i < (int)_vector.size(); i++)
 		std::cout << _vector[i] << " ";
+	std::cout << std::endl;
+
+	//Deque
+	std::cout << "deque before: ";
+	for (int i = 0; i < (int)_deque.size(); i++)
+		std::cout << _deque[i] << " ";
+	clock_t deqStart = clock();
+	sortcontainer(_deque);
+	clock_t deqEnd = clock();
+	std::cout << std::endl <<"Time to process a range of " << _deque.size() << " elements with std::deque : " << deqStart - deqEnd << std::endl;
+	std::cout << std::endl << "deque after: ";
+	for (int i = 0; i < (int)_deque.size(); i++)
+		std::cout << _deque[i] << " ";
 	std::cout << std::endl;
 }
 
@@ -232,14 +248,6 @@ void PmergeMe::start(int argc, char **argv)
 		std::string token;
 		while (ss >> token)
 		{
-			if (isNumber(token))
-				_deque.push_back(std::atoi(token.c_str()));
-			else
-			{
-				_error = true;
-				throw InvalidArgsexception();
-				break;
-			}
 			int num;
 			std::stringstream sst(token);
 			sst >> num;

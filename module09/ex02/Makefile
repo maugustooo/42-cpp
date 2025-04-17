@@ -13,7 +13,7 @@ debug: $(DEBUG)
 	$(CC) $(DEBUG) -o $(NAME)
 	
 clean:
-	rm -rf $(NAME)~
+	rm -rf $(NAME)
 
 fclean: clean
 
