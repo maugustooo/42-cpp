@@ -1,5 +1,5 @@
 SRC = main.cpp PmergeMe.cpp
-DEBUG = main.cpp PmergeMeDebug.cpp
+DEBUG = main.cpp debug.cpp
 NAME = PmergeMe
 
 CC = c++ -Wall -Werror -Wextra -g -std=c++98

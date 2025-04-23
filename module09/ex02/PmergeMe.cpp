@@ -24,10 +24,11 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &copy)
 PmergeMe::~PmergeMe()
 {
 }
+
 template <typename container>
-void binaryInsert(container &cont, int value, size_t start, size_t end) 
+void binaryInsert(container &cont, unsigned int value, size_t start, size_t end) 
 {
-    if (start >= end) 
+    if (start >= end)
     {
         cont.insert(cont.begin() + start, value);
         return;
@@ -43,7 +44,7 @@ void binaryInsert(container &cont, int value, size_t start, size_t end)
         {
             left = mid + 1;
         } 
-        else 
+        else
         {
             right = mid;
         }
@@ -55,10 +56,10 @@ template <typename container>
 container generateJacobsthal(size_t n)
 {
     container jacob;
-    size_t j0 = 0, j1 = 1;
-	jacob.push_back(j0);
-    jacob.push_back(j1);
-
+    size_t j0 = 1;
+	size_t j1 = 1;
+	if (n < 3)
+		return jacob;
     while (true)
 	{
         size_t next = j1 + 2 * j0;
@@ -68,12 +69,11 @@ container generateJacobsthal(size_t n)
         j0 = j1;
         j1 = next;
     }
-
     return jacob;
 }
 
 template <typename container>
-container generateInsertionOrder(int n)
+container generateInsertionOrder(unsigned int n)
 {
     container result;
     
@@ -87,27 +87,30 @@ container generateInsertionOrder(int n)
     container jacobNumbers = generateJacobsthal<container>(n);
     
     result.push_back(0);
-    
-    for (size_t i = 2; i < jacobNumbers.size(); ++i)
-    {
-        for (int j = jacobNumbers[i]; j > jacobNumbers[i-1]; --j)
-        {
-            if (j-1 < n)
-                result.push_back(j-1);
-        }
-    }
+	int size = static_cast<int>(n);
+    int prev = -1;
+	for (size_t i = 0; i < jacobNumbers.size(); ++i)
+	{
+		int curr = jacobNumbers[i];
+		for (int j = curr; j > prev; --j)
+		{
+			if (j < size && j != 0)
+			result.push_back(j);
+		}
+		prev = curr;
+	}
+
     std::vector<bool> used(n, false);
     for (size_t i = 0; i < result.size(); ++i)
     {
-        if (result[i] < n)
-            used[result[i]] = true;
+		if (result[i] < n)
+		used[result[i]] = true;
     }
-    for (int i = 1; i < n; ++i)
+    for (unsigned int i = 1; i < n; ++i)
     {
-        if (!used[i])
-            result.push_back(i);
+		if (!used[i])
+		result.push_back(i);
     }
-    
     return result;
 }
 
@@ -189,7 +192,7 @@ bool isNumber(const std::string &string)
 {
 	if (string.empty())
 		return false;
-	for (int i = 0; i < (int)string.size(); i++)
+	for (unsigned int i = 0; i < (unsigned int)string.size(); i++)
 	{
 		if (!std::isdigit(string[i]))
 			return false;
@@ -197,15 +200,15 @@ bool isNumber(const std::string &string)
 	return true;
 }
 
-void PmergeMe::start(int argc, char **argv)
+void PmergeMe::start(unsigned int argc, char **argv)
 {
-	for (int i = 0; i < argc -1; i++)
+	for (unsigned int i = 0; i < argc -1; i++)
 	{	
 		std::stringstream ss(argv[i + 1]);
 		std::string token;
 		while (ss >> token)
 		{
-			int num;
+			unsigned int num;
 			std::stringstream sst(token);
 			sst >> num;
 			if (sst.fail() || num < 0)

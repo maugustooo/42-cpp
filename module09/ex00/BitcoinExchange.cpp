@@ -2,18 +2,15 @@
 
 BitcoinExchange::BitcoinExchange()
 {
-    std::cout << "BitcoinExchange Default constructor called" << std::endl;
 }
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange &src)
 {
-    std::cout << "BitcoinExchange Copy constructor called" << std::endl;
     *this = src;
 }
 
 BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &src)
 {
-    std::cout << "BitcoinExchange Assignation operator called" << std::endl;
     if (this != &src)
     {
         this->_rates = src._rates;
@@ -23,7 +20,16 @@ BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &src)
 
 BitcoinExchange::~BitcoinExchange()
 {
-    std::cout << "BitcoinExchange Destructor called" << std::endl;
+}
+
+int validateDate(std::string date)
+{
+	struct tm tm;
+	if(strptime(date.c_str(), "%Y-%m-%d", &tm) == NULL)
+	{
+		return false;
+	}
+	return true;
 }
 
 void BitcoinExchange::convert(std::string date, double value)
@@ -81,6 +87,11 @@ void BitcoinExchange::getValues(std::string inputfile)
             std::cerr << "Error: invalid value: " << valuestr << std::endl;
             continue;
         }
+		if (!validateDate(date))
+		{
+			std::cerr << "Error: invalid date: " << date << std::endl;
+			continue;
+		}
         convert(date, value);
     }
 }
